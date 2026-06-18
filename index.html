@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroForte | Sustentabilidade no Campo</title>
+    <style>
+        /* --- CSS: ESTILOS DO PROJETO --- */
+        :root {
+            --primary-green: #2E7D32;
+            --secondary-green: #4CAF50;
+            --accent-gold: #F9A825;
+            --text-dark: #1a1a1a;
+            --text-light: #f4f4f4;
+            --bg-light: #ffffff;
+            --bg-gray: #f0f2f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            overflow-x: hidden;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(46, 125, 50, 0.95);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo span { color: var(--accent-gold); }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: var(--accent-gold); }
+
+        .menu-toggle { display: none; cursor: pointer; font-size: 1.5rem; color: white; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.5s backwards;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background: var(--accent-gold);
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: transform 0.3s, background 0.3s;
+            border: none;
+            cursor: pointer;
+            animation: fadeInUp 1s ease 1s backwards;
+        }
+
+        .btn:hover {
+            background: #fff;
+            transform: translateY(-3px);
+        }
+
+        /* --- SECTIONS GERAIS --- */
+        section { padding: 5rem 10%; }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .section-title .line {
+            width: 80px;
+            height: 4px;
+            background: var(--accent-gold);
+            margin: 0 auto;
+        }
+
+        /* --- SOBRE (.balance) --- */
+        .about { background: var(--bg-light); }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text { flex: 1; min-width: 300px; }
+        .about-text p { margin-bottom: 1rem; text-align: justify; }
+
+        .about-img {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* --- PILARES ( cards ) --- */
+        .pillars { background: var(--bg-gray); }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-bottom: 4px solid var(--primary-green);
+        }
+
+        .card:hover { transform: translateY(-10px); }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card h3 { margin-bottom: 1rem; color: var(--primary-green); }
+
+        /* --- GALERIA (Imagens) --- */
+        .gallery { background: white; }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img { transform: scale(1.1); }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay { transform: translateY(0); }
+
+        /* --- CONTATO --- */
+        .contact { background: var(--primary-green); color: white; }
+        
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .contact-info, .contact-form { flex: 1; min-width: 300px; }
+
+        .contact-info h3 { margin-bottom: 1rem; color: var(--accent-gold); }
+        .contact-info p { margin-bottom: 0.5rem; }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 5px;
+        }
+
+        form button {
+            background: var(--accent-gold);
+            color: var(--text-dark);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #1b1b1b;
+            color: #888;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* --- RESPONSIVO --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary-green);
+                padding: 1rem;
+                text-align: center;
+            }
+            nav ul.active { display: flex; }
+            .menu-toggle { display: block; }
+        }
+
+        /* Animações Simples */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="logo">Agro<span>Forte</span></div>
+        <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#about">O Equilíbrio</a></li>
+                <li><a href="#pillars">Práticas</a></li>
+                <li><a href="#gallery">Galeria</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Agro Forte, Futuro Sustentável</h1>
+        <p>Produzir alimentos com excelência, preservando o meio ambiente para as próximas gerações.</p>
+        <a href="#about" class="btn">Descubra Mais</a>
+    </section>
+
+    <!-- Sobre -->
+    <section id="about" class="about">
+        <div class="section-title">
+            <h2>O Equilíbrio Perfeito</h2>
+            <div class="line"></div>
+        </div>
+        <div class="about-content">
+            <div class="about-img"></div>
+            <div class="about-text">
+                <h3>Tecnologia e Natureza andando juntas</h3>
+                <p>No Agro Forte, acreditamos que produção e sustentabilidade não são opostos, mas sim complementaridades. Utilizamos agricultura de precisão para otimizar o uso de insumos, reduzindo o impacto ambiental.</p>
+                <p>Integremos práticas de ILPF (Integração Lavoura-Pecuária-Floresta) para recuperar áreas degradadas,seqüestrar carbono e promover a biodiversidade. O futuro do campo é verde.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pilares -->
+    <section id="pillars" class="pillars">
+        <div class="section-title">
+            <h2>Nossos Pilares</h2>
+            <div class="line"></div>
+        </div>
+        <div class="grid-cards">
+            <div class="card">
+                <span class="card-icon">🚜</span>
+                <h3>Agricultura de Precisão</h3>
+                <p>Uso de drones e GPS para aplicar defensivos apenas onde necessário, economizando recursos.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">💧</span>
+                <h3>Gestão Hídrica</h3>
+                <p>Sistemas de irrigação inteligente e barragens de acumulação para combate à seca.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">☀️</span>
+                <h3>Energia Limpa</h3
+                    <p>é aquela gerada a partir de fontes que emitem pouco ou nenhum poluente atmosférico. </p>
